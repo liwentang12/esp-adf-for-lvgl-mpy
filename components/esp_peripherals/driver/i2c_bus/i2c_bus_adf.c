@@ -26,7 +26,7 @@
 #include <string.h>
 #include "esp_log.h"
 #include "driver/i2c.h"
-#include "i2c_bus.h"
+#include "i2c_bus_adf.h"
 #include "audio_mutex.h"
 #include "audio_mem.h"
 

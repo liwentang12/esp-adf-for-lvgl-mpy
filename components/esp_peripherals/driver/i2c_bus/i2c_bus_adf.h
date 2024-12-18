@@ -21,8 +21,8 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-#ifndef _IOT_I2C_BUS_H_
-#define _IOT_I2C_BUS_H_
+#ifndef _IOT_I2C_BUS_ADF_H_
+#define _IOT_I2C_BUS_ADF_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -36,7 +36,8 @@ extern "C" {
 
 #include "driver/i2c.h"
 
-typedef void *i2c_bus_handle_t;
+typedef void* i2c_bus_handle_t;
+//#define i2c_bus_handle_t void*
 typedef void (*i2c_run_cb_t)(i2c_port_t port, void *arg);
 
 /**

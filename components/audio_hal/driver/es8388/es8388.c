@@ -24,7 +24,7 @@
 
 #include <string.h>
 #include "esp_log.h"
-#include "i2c_bus.h"
+#include "i2c_bus_adf.h"
 #include "es8388.h"
 #include "board.h"
 #include "audio_volume.h"

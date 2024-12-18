@@ -32,7 +32,7 @@
 #include "audio_mutex.h"
 #include "audio_mem.h"
 #include "audio_error.h"
-#include "i2c_bus.h"
+#include "i2c_bus_adf.h"
 
 #if (ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 3, 0))
 

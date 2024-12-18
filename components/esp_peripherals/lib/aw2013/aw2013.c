@@ -23,7 +23,7 @@
  */
 
 #include <string.h>
-#include "i2c_bus.h"
+#include "i2c_bus_adf.h"
 #include "board.h"
 #include "aw2013.h"
 #include "esp_log.h"

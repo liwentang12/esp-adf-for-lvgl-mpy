@@ -27,7 +27,7 @@
 #include "driver/i2c.h"
 #include "esp_log.h"
 #include "IS31FL3216.h"
-#include "i2c_bus.h"
+#include "i2c_bus_adf.h"
 #include "audio_mem.h"
 
 #define IS31FL3216_WRITE_BIT        0x00

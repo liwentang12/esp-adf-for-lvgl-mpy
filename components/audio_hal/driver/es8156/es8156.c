@@ -24,7 +24,7 @@
 
 #include "string.h"
 #include "esp_log.h"
-#include "i2c_bus.h"
+#include "i2c_bus_adf.h"
 #include "es8156.h"
 #include "driver/gpio.h"
 #include "board.h"

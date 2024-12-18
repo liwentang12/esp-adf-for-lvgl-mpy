@@ -23,7 +23,8 @@
  */
 
 #include <string.h>
-#include "i2c_bus.h"
+//#include "driver/i2c_bus/i2c_bus.h"
+#include "i2c_bus_adf.h"
 #include "board.h"
 #include "esp_log.h"
 #include "es8311.h"

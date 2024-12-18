@@ -32,30 +32,30 @@
  */
 #define FUNC_SDCARD_EN            (1)
 #define SDCARD_OPEN_FILE_NUM_MAX  5
-#define SDCARD_INTR_GPIO          GPIO_NUM_34
+#define SDCARD_INTR_GPIO          -1 //lwt GPIO_NUM_34
 
-#define ESP_SD_PIN_CLK            GPIO_NUM_14
-#define ESP_SD_PIN_CMD            GPIO_NUM_15
-#define ESP_SD_PIN_D0             GPIO_NUM_2
-#define ESP_SD_PIN_D1             GPIO_NUM_4
-#define ESP_SD_PIN_D2             GPIO_NUM_12
-#define ESP_SD_PIN_D3             GPIO_NUM_13
+#define ESP_SD_PIN_CLK            -1 //lwt GPIO_NUM_14
+#define ESP_SD_PIN_CMD            -1 //lwt GPIO_NUM_15
+#define ESP_SD_PIN_D0             -1 //lwt GPIO_NUM_2
+#define ESP_SD_PIN_D1             -1 //lwt GPIO_NUM_4
+#define ESP_SD_PIN_D2             -1 //lwt GPIO_NUM_12
+#define ESP_SD_PIN_D3             -1 //lwt GPIO_NUM_13
 
 
 /**
  * @brief LED Function Definition
  */
 #define FUNC_SYS_LEN_EN           (1)
-#define GREEN_LED_GPIO            GPIO_NUM_22
+#define GREEN_LED_GPIO            -1 //lwt GPIO_NUM_22
 
 
 /**
  * @brief Audio Codec Chip Function Definition
  */
 #define FUNC_AUDIO_CODEC_EN       (1)
-#define AUXIN_DETECT_GPIO         GPIO_NUM_12
-#define HEADPHONE_DETECT          GPIO_NUM_19
-#define PA_ENABLE_GPIO            GPIO_NUM_21
+#define AUXIN_DETECT_GPIO         -1 //lwt GPIO_NUM_12
+#define HEADPHONE_DETECT          -1 //lwt GPIO_NUM_19
+#define PA_ENABLE_GPIO            -1 //lwt GPIO_NUM_21
 #define CODEC_ADC_I2S_PORT        ((i2s_port_t)0)
 #define CODEC_ADC_BITS_PER_SAMPLE ((i2s_data_bit_width_t)16) /* 16bit */
 #define CODEC_ADC_SAMPLE_RATE     (48000)
@@ -81,12 +81,12 @@ extern audio_hal_func_t AUDIO_CODEC_ES8388_DEFAULT_HANDLE;
  */
 #define FUNC_BUTTON_EN            (1)
 #define INPUT_KEY_NUM             6
-#define BUTTON_REC_ID             GPIO_NUM_36
-#define BUTTON_MODE_ID            GPIO_NUM_39
-#define BUTTON_SET_ID             TOUCH_PAD_NUM9
-#define BUTTON_PLAY_ID            TOUCH_PAD_NUM8
-#define BUTTON_VOLUP_ID           TOUCH_PAD_NUM7
-#define BUTTON_VOLDOWN_ID         TOUCH_PAD_NUM4
+#define BUTTON_REC_ID             -1 //lwt GPIO_NUM_36
+#define BUTTON_MODE_ID            -1 //lwt GPIO_NUM_39
+#define BUTTON_SET_ID             -1 //lwt TOUCH_PAD_NUM9
+#define BUTTON_PLAY_ID            -1 //lwt TOUCH_PAD_NUM8
+#define BUTTON_VOLUP_ID           -1 //lwt TOUCH_PAD_NUM7
+#define BUTTON_VOLDOWN_ID         -1 //lwt TOUCH_PAD_NUM4
 
 #define INPUT_KEY_DEFAULT_INFO() {                      \
      {                                                  \

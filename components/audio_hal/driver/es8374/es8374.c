@@ -25,7 +25,7 @@
 #include <string.h>
 #include "esp_system.h"
 #include "esp_log.h"
-#include "i2c_bus.h"
+#include "i2c_bus_adf.h"
 #include "es8374.h"
 #include "board_pins_config.h"
 

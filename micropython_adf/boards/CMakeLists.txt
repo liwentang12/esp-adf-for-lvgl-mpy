@@ -13,7 +13,7 @@ set(srcs
     ${ADF_COMPS}/audio_stream/lib/hls/hls_playlist.c
     ${ADF_COMPS}/audio_stream/lib/hls/join_path.c
     ${ADF_COMPS}/audio_stream/lib/hls/line_reader.c
-    ${ADF_COMPS}/esp_peripherals/driver/i2c_bus/i2c_bus.c
+    ${ADF_COMPS}/esp_peripherals/driver/i2c_bus/i2c_bus_adf.c
 )
 
 set(includes

@@ -25,7 +25,7 @@
 #include <string.h>
 #include "esp_log.h"
 #include "board.h"
-#include "i2c_bus.h"
+#include "i2c_bus_adf.h"
 #include "es7210.h"
 
 /* ES7210 address */

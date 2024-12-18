@@ -29,7 +29,7 @@
 
 #include "esp_log.h"
 #include "esp_err.h"
-#include "esp_vfs_fat.h"
+//#include "esp_vfs_fat.h"
 #include "soc/soc_caps.h"
 
 #if SOC_SDMMC_HOST_SUPPORTED
@@ -64,132 +64,14 @@ static void sdmmc_card_print_info(const sdmmc_card_t *card)
 
 esp_err_t sdcard_mount(const char *base_path, periph_sdcard_mode_t mode)
 {
-    if (mode >= SD_MODE_MAX) {
-        ESP_LOGE(TAG, "PLease select the correct sd mode: 1-line SD mode, 4-line SD mode or SPI mode!, current mode is %d", mode);
-        return ESP_FAIL;
-    }
-
-    esp_err_t ret = ESP_FAIL;
-    esp_vfs_fat_sdmmc_mount_config_t mount_config = {
-        .format_if_mount_failed = false,
-        .max_files = get_sdcard_open_file_num_max(),
-        .allocation_unit_size = 64 * 1024,
-    };
-
-#if defined SD_PWR_CTRL_LDO_INTERNAL_IO
-    sd_pwr_ctrl_ldo_config_t ldo_config = {
-        .ldo_chan_id = SD_PWR_CTRL_LDO_INTERNAL_IO,
-    };
-    sd_pwr_ctrl_handle_t pwr_ctrl_handle = NULL;
-
-    ret = sd_pwr_ctrl_new_on_chip_ldo(&ldo_config, &pwr_ctrl_handle);
-    if (ret != ESP_OK) {
-        ESP_LOGE(TAG, "Failed to create a new on-chip LDO power control driver");
-        return ESP_FAIL;
-    }
-#endif // SD_PWR_CTRL_LDO_INTERNAL_IO
-
-    if (mode != SD_MODE_SPI) {
-#if SOC_SDMMC_HOST_SUPPORTED
-        ESP_LOGI(TAG, "Using %d-line SD mode,  base path=%s", mode, base_path);
-
-        sdmmc_host_t host = SDMMC_HOST_DEFAULT();
-        // host.max_freq_khz = SDMMC_FREQ_HIGHSPEED;
-    /* Note: default sdmmc use slot0, hosted use slot1 */
-#if defined CONFIG_IDF_TARGET_ESP32P4
-        host.slot = SDMMC_HOST_SLOT_0;
-#endif // CONFIG_IDF_TARGET_ESP32P4
-#if defined SD_PWR_CTRL_LDO_INTERNAL_IO
-        host.pwr_ctrl_handle = pwr_ctrl_handle;
-#endif
-        sdmmc_slot_config_t slot_config = SDMMC_SLOT_CONFIG_DEFAULT();
-        // slot_config.gpio_cd = g_gpio;
-        slot_config.width = mode;
-        // Enable internal pullups on enabled pins. The internal pullups
-        // are insufficient however, please make sure 10k external pullups are
-        // connected on the bus. This is for debug / example purpose only.
-        slot_config.flags |= SDMMC_SLOT_FLAG_INTERNAL_PULLUP;
-
-#if SOC_SDMMC_USE_GPIO_MATRIX
-        slot_config.clk = ESP_SD_PIN_CLK;
-        slot_config.cmd = ESP_SD_PIN_CMD;
-        slot_config.d0 = ESP_SD_PIN_D0;
-        slot_config.d1 = ESP_SD_PIN_D1;
-        slot_config.d2 = ESP_SD_PIN_D2;
-        slot_config.d3 = ESP_SD_PIN_D3;
-        slot_config.d4 = ESP_SD_PIN_D4;
-        slot_config.d5 = ESP_SD_PIN_D5;
-        slot_config.d6 = ESP_SD_PIN_D6;
-        slot_config.d7 = ESP_SD_PIN_D7;
-        slot_config.cd = ESP_SD_PIN_CD;
-        slot_config.wp = ESP_SD_PIN_WP;
-#endif
-        ret = esp_vfs_fat_sdmmc_mount(base_path, &host, &slot_config, &mount_config, &card);
-#endif
-    } else {
-        ESP_LOGI(TAG, "Using SPI mode, base path=%s", base_path);
-        sdmmc_host_t host = SDSPI_HOST_DEFAULT();
-#if defined SD_PWR_CTRL_LDO_INTERNAL_IO
-        host.pwr_ctrl_handle = pwr_ctrl_handle;
-#endif
-        spi_bus_config_t bus_cfg = {
-            .mosi_io_num = ESP_SD_PIN_CMD,
-            .miso_io_num = ESP_SD_PIN_D0,
-            .sclk_io_num = ESP_SD_PIN_CLK,
-            .quadwp_io_num = -1,
-            .quadhd_io_num = -1,
-            .max_transfer_sz = 4000,
-        };
-        ret = spi_bus_initialize(host.slot, &bus_cfg, SPI_DMA_CH_AUTO);
-        if (ret != ESP_OK) {
-            ESP_LOGE(TAG, "Failed to initialize bus.");
-            return ret;
-        }
-        sdspi_device_config_t slot_config = SDSPI_DEVICE_CONFIG_DEFAULT();
-        slot_config.gpio_cs = ESP_SD_PIN_D3;
-        slot_config.host_id = host.slot;
-        ret = esp_vfs_fat_sdspi_mount(base_path, &host, &slot_config, &mount_config, &card);
-    }
-
-    switch (ret) {
-        case ESP_OK:
-            // Card has been initialized, print its properties
-            sdmmc_card_print_info(card);
-            ESP_LOGI(TAG, "CID name %s!\n", card->cid.name);
-            break;
-
-        case ESP_ERR_INVALID_STATE:
-            ESP_LOGE(TAG, "File system already mounted");
-            break;
-
-        case ESP_FAIL:
-            ESP_LOGE(TAG, "Failed to mount filesystem. If you want the card to be formatted, set format_if_mount_failed = true.");
-            break;
-
-        default:
-            ESP_LOGE(TAG, "Failed to initialize the card (%d). Make sure SD card lines have pull-up resistors in place.", ret);
-            break;
-    }
-
-    return ret;
-
+    ESP_LOGE(TAG, "LWT sdcard_mount, base_path: %s\n", base_path);
+    return ESP_FAIL;
 }
 
 esp_err_t sdcard_unmount(const char *base_path, periph_sdcard_mode_t mode)
 {
-#if (ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 1, 0))
-    esp_err_t ret = esp_vfs_fat_sdcard_unmount(base_path, card);
-#else
-    esp_err_t ret = esp_vfs_fat_sdmmc_unmount();
-#endif
-    if (mode == SD_MODE_SPI) {
-        sdmmc_host_t host = SDSPI_HOST_DEFAULT();
-        spi_bus_free(host.slot);
-    }
-    if (ret == ESP_ERR_INVALID_STATE) {
-        ESP_LOGE(TAG, "File system not mounted");
-    }
-    return ret;
+    ESP_LOGE(TAG, "LWT sdcard_unmount, base_path: %s\n", base_path);
+    return ESP_OK;
 }
 
 bool sdcard_is_exist()
