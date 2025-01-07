@@ -23,7 +23,7 @@
  */
 
 #include "driver/i2c.h"
-#include "i2c_bus.h"
+#include "i2c_bus_adf.h"
 #include "esp_err.h"
 #include "esp_log.h"
 #include "freertos/task.h"
